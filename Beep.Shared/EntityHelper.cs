@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -1355,5 +1357,115 @@ namespace TheTechIdea.Beep.Shared
 
         #endregion "IBeep Logic"
 
-    }
+        #region "Deep Copy"
+        public static object DeepCopy(object obj)
+        {
+            if (obj == null) return null;
+
+            object copy = Activator.CreateInstance(obj.GetType());
+
+            foreach (var prop in obj.GetType().GetProperties())
+            {
+                if (prop.CanRead && prop.CanWrite)
+                {
+                    var value = prop.GetValue(obj);
+                    prop.SetValue(copy, value);
+                }
+            }
+
+            return copy;
+        }
+        public static T DeepCopy<T>(T obj)
+        {
+            if (obj == null) return default;
+            T copy = Activator.CreateInstance<T>();
+            foreach (var prop in typeof(T).GetProperties())
+            {
+                if (prop.CanRead && prop.CanWrite)
+                {
+                    var value = prop.GetValue(obj);
+                    prop.SetValue(copy, value);
+                }
+            }
+            return copy;
+        }
+        public static T DeepCopy<T>(T obj, Dictionary<object, object> copiedObjects)
+        {
+            if (obj == null) return default;
+            if (copiedObjects.ContainsKey(obj))
+            {
+                return (T)copiedObjects[obj];
+            }
+            T copy = Activator.CreateInstance<T>();
+            copiedObjects.Add(obj, copy);
+            foreach (var prop in typeof(T).GetProperties())
+            {
+                if (prop.CanRead && prop.CanWrite)
+                {
+                    var value = prop.GetValue(obj);
+                    if (value != null)
+                    {
+                        if (value.GetType().IsClass && value.GetType() != typeof(string))
+                        {
+                            prop.SetValue(copy, DeepCopy(value, copiedObjects));
+                        }
+                        else
+                        {
+                            prop.SetValue(copy, value);
+                        }
+                    }
+                }
+            }
+            return copy;
+        }
+        public static object DeepCopy(object obj, Dictionary<object, object> copiedObjects)
+        {
+            if (obj == null) return null;
+            if (copiedObjects.ContainsKey(obj))
+            {
+                return copiedObjects[obj];
+            }
+            object copy = Activator.CreateInstance(obj.GetType());
+            copiedObjects.Add(obj, copy);
+            foreach (var prop in obj.GetType().GetProperties())
+            {
+                if (prop.CanRead && prop.CanWrite)
+                {
+                    var value = prop.GetValue(obj);
+                    if (value != null)
+                    {
+                        if (value.GetType().IsClass && value.GetType() != typeof(string))
+                        {
+                            prop.SetValue(copy, DeepCopy(value, copiedObjects));
+                        }
+                        else
+                        {
+                            prop.SetValue(copy, value);
+                        }
+                    }
+                }
+            }
+            return copy;
+        }
+        public static T DeepCopy<T>(T obj, Func<T, T> copyAction)
+        {
+            if (obj == null) return default;
+            return copyAction(obj);
+        }
+        public static object DeepCopy(object obj, Func<object, object> copyAction)
+        {
+            if (obj == null) return null;
+            return copyAction(obj);
+        }
+
+        public static  object DeepCopyUsingSerialize(object obj)
+        {
+            if (obj == null) return null;
+
+          var json = JsonSerializer.Serialize(obj);
+          return JsonSerializer.Deserialize(json, obj.GetType());
+        }
+
+    #endregion "Deep Copy"
+}
 }
