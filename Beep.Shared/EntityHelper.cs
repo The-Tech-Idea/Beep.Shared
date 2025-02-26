@@ -377,6 +377,7 @@ namespace TheTechIdea.Beep.Shared
         {
             EntityStructure entity = new EntityStructure();
             Type tp = retval.GetType();
+            entity.EntityName = tp.Name;
             DataTable dt;
             if (entity.Fields.Count == 0)
             {
