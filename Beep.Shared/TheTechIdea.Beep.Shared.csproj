@@ -27,8 +27,8 @@
   </Target>
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.1" />
-    <PackageReference Include="TheTechIdea.Beep.Container.Model" Version="1.0.0.42" />
-    <PackageReference Include="TheTechIdea.Beep.DataManagementModels" Version="2.0.40" />
+    <PackageReference Include="TheTechIdea.Beep.Container.Model" Version="1.0.0.44" />
+    <PackageReference Include="TheTechIdea.Beep.DataManagementModels" Version="2.0.42" />
   </ItemGroup>
 
 </Project>
