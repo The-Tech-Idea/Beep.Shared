@@ -26,9 +26,9 @@
     <Copy SourceFiles="$(TargetDir)$(PackageId).dll" DestinationFolder="$(ProjectDir)..\..\outputDLL\$(PackageId)\$(TargetFramework)" SkipUnchangedFiles="false" />
   </Target>
   <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.4" />
-    <PackageReference Include="TheTechIdea.Beep.Container.Model" Version="1.0.0.45" />
-    <PackageReference Include="TheTechIdea.Beep.DataManagementModels" Version="2.0.64" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.5" />
+    <PackageReference Include="TheTechIdea.Beep.Container.Model" Version="1.0.0.46" />
+    <PackageReference Include="TheTechIdea.Beep.DataManagementModels" Version="2.0.65" />
   </ItemGroup>
 
 </Project>
