@@ -10,14 +10,14 @@ namespace TheTechIdea.Beep.Icons
     /// Provides convenient access to embedded UI icon SVGs under the namespace:
     /// TheTechIdea.Beep.Icons.uiicons
     /// </summary>
-    public static class Util
+    public static class uiicons
     {
         private const string BaseNamespace = "TheTechIdea.Beep.Icons.uiicons";
 
         /// <summary>
         /// Gets the assembly containing the embedded UI icon SVG resources.
         /// </summary>
-        public static Assembly ResourceAssembly => typeof(Util).Assembly;
+        public static Assembly ResourceAssembly => typeof(uiicons).Assembly;
 
         private static readonly Lazy<string[]> _resourceNames = new(() =>
             ResourceAssembly.GetManifestResourceNames()
