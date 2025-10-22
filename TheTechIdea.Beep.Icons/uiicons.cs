@@ -30,7 +30,7 @@ namespace TheTechIdea.Beep.Icons
             var dict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             foreach (var fullName in _resourceNames.Value)
             {
-                var fileName = GetFileName(fullName);
+                var fileName = UiIconsHelpers.GetFileName(fullName, BaseNamespace);
                 if (!dict.ContainsKey(fileName))
                 {
                     dict[fileName] = fullName;
@@ -59,7 +59,7 @@ namespace TheTechIdea.Beep.Icons
             {
                 return _resourceNames.Value.Contains(nameOrFile);
             }
-            var file = EnsureExtension(ExtractFileName(nameOrFile));
+            var file = UiIconsHelpers.EnsureExtension(UiIconsHelpers.ExtractFileName(nameOrFile));
             return _byFileName.Value.ContainsKey(file);
         }
 
@@ -84,7 +84,7 @@ namespace TheTechIdea.Beep.Icons
             }
 
             // Accept raw filename or folder-like path
-            var file = EnsureExtension(ExtractFileName(nameOrFile));
+            var file = UiIconsHelpers.EnsureExtension(UiIconsHelpers.ExtractFileName(nameOrFile));
             if (_byFileName.Value.TryGetValue(file, out var full))
             {
                 resourcePath = full;
@@ -128,34 +128,6 @@ namespace TheTechIdea.Beep.Icons
         {
             if (!TryGet(nameOrFile, out var full)) return null;
             return ResourceAssembly.GetManifestResourceStream(full);
-        }
-
-        private static string GetFileName(string resourceName)
-        {
-            // resourceName format: TheTechIdea.Beep.Icons.uiicons.<filename>.svg
-            if (resourceName.StartsWith(BaseNamespace + ".", StringComparison.Ordinal))
-            {
-                return resourceName.Substring(BaseNamespace.Length + 1);
-            }
-            // Fallback: last two segments like "<name>.svg"
-            var parts = resourceName.Split('.');
-            if (parts.Length >= 2)
-            {
-                return parts[^2] + "." + parts[^1];
-            }
-            return resourceName;
-        }
-
-        private static string ExtractFileName(string nameOrPath)
-        {
-            var name = nameOrPath.Replace('\\', '/');
-            var slash = name.LastIndexOf('/') + 1;
-            return slash > 0 ? name.Substring(slash) : name;
-        }
-
-        private static string EnsureExtension(string file)
-        {
-            return file.EndsWith(".svg", StringComparison.OrdinalIgnoreCase) ? file : file + ".svg";
         }
 
         // Shared helper for nested icon categories
