@@ -34,8 +34,8 @@ namespace TheTechIdea.Beep.Shared
                 {
                     EntityField field = new EntityField
                     {
-                        fieldname = propInfo.Name,
-                        fieldtype = propInfo.PropertyType.FullName
+                       FieldName = propInfo.Name,
+                        Fieldtype = propInfo.PropertyType.FullName
                     };
 
                     // Additional attributes like Size1, IsAutoIncrement, AllowDBNull, and IsUnique
@@ -71,8 +71,8 @@ namespace TheTechIdea.Beep.Shared
             {
                 EntityField field = new EntityField
                 {
-                    fieldname = propInfo.Name,
-                    fieldtype = propInfo.PropertyType.ToString(),
+                   FieldName = propInfo.Name,
+                    Fieldtype = propInfo.PropertyType.ToString(),
                     // Additional attributes like Size1, IsAutoIncrement, AllowDBNull, and IsUnique
                     // might need to be inferred or set to default values as they are not directly available from PropertyInfo
                 };
@@ -176,9 +176,9 @@ namespace TheTechIdea.Beep.Shared
             }
             EntityField field = new EntityField
             {
-                fieldname = propInfo.Name,
-                fieldtype = propInfo.PropertyType.FullName,
-                fieldCategory = fldcat
+               FieldName = propInfo.Name,
+                Fieldtype = propInfo.PropertyType.FullName,
+               FieldCategory = fldcat
             };
             // Additional attributes like Size1, IsAutoIncrement, AllowDBNull, and IsUnique
             // might not be directly available or applicable for every property type.
@@ -269,9 +269,9 @@ namespace TheTechIdea.Beep.Shared
             EntityField field = new EntityField
             {
                 EntityName = col.Table.TableName,
-                fieldname = col.ColumnName,
-                fieldtype = col.DataType.ToString(),
-                fieldCategory = fldcat,
+               FieldName = col.ColumnName,
+                Fieldtype = col.DataType.ToString(),
+               FieldCategory = fldcat,
                 ValueRetrievedFromParent = false,
                 FieldIndex = col.Ordinal
 
@@ -359,9 +359,9 @@ namespace TheTechIdea.Beep.Shared
             }
             EntityField field = new EntityField
             {
-                fieldname = propInfo.Name,
-                fieldtype = propInfo.PropertyType.FullName,
-                fieldCategory = fldcat
+               FieldName = propInfo.Name,
+                Fieldtype = propInfo.PropertyType.FullName,
+               FieldCategory = fldcat
             };
             // Additional attributes like Size1, IsAutoIncrement, AllowDBNull, and IsUnique
             // might not be directly available or applicable for every property type.
@@ -395,50 +395,50 @@ namespace TheTechIdea.Beep.Shared
                     EntityField x = new EntityField();
                     try
                     {
-                        x.fieldname = item.ColumnName;
-                        x.fieldtype = item.DataType.ToString(); //"ColumnSize"
-                        DbFieldCategory fieldCategory = DbFieldCategory.String;
+                        x.FieldName = item.ColumnName;
+                        x.Fieldtype = item.DataType.ToString(); //"ColumnSize"
+                        x.FieldCategory = DbFieldCategory.String;
                         if (item.DataType == typeof(string))
                         {
-                            fieldCategory = DbFieldCategory.String;
+                            x.FieldCategory = DbFieldCategory.String;
                         }
                         else if (item.DataType == typeof(int) || item.DataType == typeof(long) || item.DataType == typeof(float) || item.DataType == typeof(double) || item.DataType == typeof(decimal))
                         {
-                            fieldCategory = DbFieldCategory.Numeric;
+                            x.FieldCategory = DbFieldCategory.Numeric;
                         }
                         else if (item.DataType == typeof(DateTime))
                         {
-                            fieldCategory = DbFieldCategory.Date;
+                            x.FieldCategory = DbFieldCategory.Date;
                         }
                         else if (item.DataType == typeof(bool))
                         {
-                            fieldCategory = DbFieldCategory.Boolean;
+                            x.FieldCategory = DbFieldCategory.Boolean;
                         }
                         else if (item.DataType == typeof(byte[]))
                         {
-                            fieldCategory = DbFieldCategory.Binary;
+                            x.FieldCategory = DbFieldCategory.Binary;
                         }
                         else if (item.DataType == typeof(Guid))
                         {
-                            fieldCategory = DbFieldCategory.Guid;
+                            x.FieldCategory = DbFieldCategory.Guid;
                         }
                         else if (item.DataType == typeof(JsonDocument))
                         {
-                            fieldCategory = DbFieldCategory.Json;
+                            x.FieldCategory = DbFieldCategory.Json;
                         }
                         else if (item.DataType == typeof(XmlDocument))
                         {
-                            fieldCategory = DbFieldCategory.Xml;
+                            x.FieldCategory = DbFieldCategory.Xml;
                         }
                         else if (item.DataType == typeof(decimal))
                         {
-                            fieldCategory = DbFieldCategory.Currency;
+                            x.FieldCategory = DbFieldCategory.Currency;
                         }
                         else if (item.DataType.IsEnum)
                         {
-                            fieldCategory = DbFieldCategory.Enum;
+                            x.FieldCategory = DbFieldCategory.Enum;
                         }
-                        x.fieldCategory = fieldCategory;
+                       
                         x.Size1 = item.MaxLength;
                         try
                         {
@@ -491,12 +491,12 @@ namespace TheTechIdea.Beep.Shared
                 var entityInstance = Activator.CreateInstance(enttype);
                 foreach (EntityField col in ent.Fields)
                 {
-                    PropertyInfo propertyInfo = entityInstance.GetType().GetProperty(col.fieldname);
-                    if (propertyInfo != null && dr[col.fieldname] != DBNull.Value)
+                    PropertyInfo propertyInfo = entityInstance.GetType().GetProperty(col.FieldName);
+                    if (propertyInfo != null && dr[col.FieldName] != DBNull.Value)
                     {
                         try
                         {
-                            object value = Convert.ChangeType(dr[col.fieldname], propertyInfo.PropertyType);
+                            object value = Convert.ChangeType(dr[col.FieldName], propertyInfo.PropertyType);
                             propertyInfo.SetValue(entityInstance, value);
                         }
                         catch (Exception ex)
@@ -521,7 +521,7 @@ namespace TheTechIdea.Beep.Shared
                 var entityInstance = Activator.CreateInstance(enttype);
                 foreach (EntityField col in ent.Fields)
                 {
-                    PropertyInfo propertyInfo = entityInstance.GetType().GetProperty(col.fieldname);
+                    PropertyInfo propertyInfo = entityInstance.GetType().GetProperty(col.FieldName);
                     if (propertyInfo != null)
                     {
                         var defaultValue = propertyInfo.PropertyType.IsValueType ? Activator.CreateInstance(propertyInfo.PropertyType) : null;
@@ -570,7 +570,7 @@ namespace TheTechIdea.Beep.Shared
             for (int i = 0; i < entity.Fields.Count; i++)
             {
                 EntityField prop = entity.Fields[i];
-                table.Columns.Add(prop.fieldname, Type.GetType(prop.fieldtype));
+                table.Columns.Add(prop.FieldName, Type.GetType(prop.Fieldtype));
             }
             return table;
         }
@@ -580,7 +580,7 @@ namespace TheTechIdea.Beep.Shared
             for (int i = 0; i < entity.Fields.Count; i++)
             {
                 EntityField prop = entity.Fields[i];
-                table.Columns.Add(prop.fieldname, Type.GetType(prop.fieldtype));
+                table.Columns.Add(prop.FieldName, Type.GetType(prop.Fieldtype));
             }
             return table;
         }
@@ -590,14 +590,14 @@ namespace TheTechIdea.Beep.Shared
             for (int i = 0; i < entity.Fields.Count; i++)
             {
                 EntityField prop = entity.Fields[i];
-                table.Columns.Add(prop.fieldname, Type.GetType(prop.fieldtype));
+                table.Columns.Add(prop.FieldName, Type.GetType(prop.Fieldtype));
             }
             foreach (var item in list)
             {
                 DataRow dr = table.NewRow();
                 foreach (EntityField prop in entity.Fields)
                 {
-                    dr[prop.fieldname] = GetPropertyValue(item, prop.fieldname);
+                    dr[prop.FieldName] = GetPropertyValue(item, prop.FieldName);
                 }
                 table.Rows.Add(dr);
             }
@@ -609,14 +609,14 @@ namespace TheTechIdea.Beep.Shared
             for (int i = 0; i < entity.Fields.Count; i++)
             {
                 EntityField prop = entity.Fields[i];
-                table.Columns.Add(prop.fieldname, Type.GetType(prop.fieldtype));
+                table.Columns.Add(prop.FieldName, Type.GetType(prop.Fieldtype));
             }
             foreach (var item in list)
             {
                 DataRow dr = table.NewRow();
                 foreach (EntityField prop in entity.Fields)
                 {
-                    dr[prop.fieldname] = GetPropertyValue(item, prop.fieldname);
+                    dr[prop.FieldName] = GetPropertyValue(item, prop.FieldName);
                 }
                 table.Rows.Add(dr);
             }
