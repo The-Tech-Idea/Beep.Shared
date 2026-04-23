@@ -26,8 +26,8 @@
     <Copy SourceFiles="$(TargetDir)$(PackageId).dll" DestinationFolder="$(ProjectDir)..\..\outputDLL\$(PackageId)\$(TargetFramework)" SkipUnchangedFiles="false" />
   </Target>
   <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.6" />
-    <PackageReference Include="TheTechIdea.Beep.DataManagementModels" Version="2.0.1443" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.7" />
+    <PackageReference Include="TheTechIdea.Beep.DataManagementModels" Version="2.0.1444" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Beep.Winform\TheTechIdea.Beep.Vis.Modules2.0\TheTechIdea.Beep.Vis.Modules.csproj" />
