@@ -7,7 +7,7 @@ namespace TheTechIdea.Beep.Shared
     /// <summary>
     /// Wires add-in tree metadata, dynamic function calling, and <see cref="HandlersFactory"/> delegates.
     /// After <c>BeepDesktopServices.ConfigureServices</c>, WinForms applications should run
-    /// <c>BeepWinformUiBootstrap.ConfigureBeepWinformAddInUi</c> (Integrated) to mirror handlers into Beep controls.
+    /// <c>BeepWinformUiBootstrap.ConfigureBeepAddInUi</c> (Integrated) to mirror handlers into Beep controls.
     /// </summary>
     public static class AddInCommandPipeline
     {
