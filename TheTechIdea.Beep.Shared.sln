@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11822.322 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheTechIdea.Beep.Shared", "Beep.Shared\TheTechIdea.Beep.Shared.csproj", "{958DB198-A5AE-4363-8FB0-C859797D9E82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheTechIdea.Beep.Fonts", "TheTechIdea.Beep.Fonts\TheTechIdea.Beep.Fonts.csproj", "{DCBD988A-36D6-AF28-907C-A5939FDBF83F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheTechIdea.Beep.Icons", "TheTechIdea.Beep.Icons\TheTechIdea.Beep.Icons.csproj", "{8176F702-4A47-FB4F-A5EF-040FFFF414A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{958DB198-A5AE-4363-8FB0-C859797D9E82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{958DB198-A5AE-4363-8FB0-C859797D9E82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{958DB198-A5AE-4363-8FB0-C859797D9E82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCBD988A-36D6-AF28-907C-A5939FDBF83F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBD988A-36D6-AF28-907C-A5939FDBF83F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBD988A-36D6-AF28-907C-A5939FDBF83F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCBD988A-36D6-AF28-907C-A5939FDBF83F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8176F702-4A47-FB4F-A5EF-040FFFF414A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8176F702-4A47-FB4F-A5EF-040FFFF414A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8176F702-4A47-FB4F-A5EF-040FFFF414A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8176F702-4A47-FB4F-A5EF-040FFFF414A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
