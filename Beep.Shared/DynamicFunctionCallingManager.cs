@@ -38,7 +38,7 @@ namespace TheTechIdea.Beep.Shared
             //Type t = ((IFunctionExtension)fc).GetType();
             //   AssemblyClassDefinition cls = tree.Editor.ConfigEditor.GlobalFunctions.Where(x => x.className == t.Name).FirstOrDefault();
 
-            methodsClass = assemblydef.Methods.Where(x => x.Caption == MethodName).FirstOrDefault();
+            methodsClass = assemblydef.Methods.Where(x => x.Name == MethodName).FirstOrDefault();
 
           
             method = methodsClass.Info;
