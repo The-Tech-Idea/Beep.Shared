@@ -10,17 +10,24 @@ namespace TheTechIdea.Beep.Shared
 {
     /// <summary>
     /// Composition for Beep WinForms: wires add-in command handlers and mirrors them into <see cref="SimpleItemFactory"/>.
-    /// Call after <c>BeepDesktopServices.ConfigureServices(host)</c>. Keeps <c>TheTechIdea.Beep.Winform.Controls</c> free of desktop/add-in references.
+    /// Call after <c>BeepDesktopServices.ConfigureServices(serviceProvider)</c>. Keeps <c>TheTechIdea.Beep.Winform.Controls</c> free of desktop/add-in references.
     /// </summary>
     public static class BeepUiBootstrap
     {
+        /// <summary>Resolves <see cref="IBeepService"/> and <see cref="IAppManager"/> from the service provider and applies WinForms add-in UI wiring.</summary>
+        public static void ConfigureBeepAddInUi(this IServiceProvider serviceProvider)
+        {
+            ArgumentNullException.ThrowIfNull(serviceProvider);
+            var beep = serviceProvider.GetRequiredService<IBeepService>();
+            var app = serviceProvider.GetRequiredService<IAppManager>();
+            ConfigureBeepWinformAddInUi(beep, app);
+        }
+
         /// <summary>Resolves <see cref="IBeepService"/> and <see cref="IAppManager"/> from the host and applies WinForms add-in UI wiring.</summary>
         public static void ConfigureBeepAddInUi(this IHost host)
         {
             ArgumentNullException.ThrowIfNull(host);
-            var beep = host.Services.GetRequiredService<IBeepService>();
-            var app = host.Services.GetRequiredService<IAppManager>();
-            ConfigureBeepWinformAddInUi(beep, app);
+            ConfigureBeepAddInUi(host.Services);
         }
 
         /// <summary>Runs <see cref="AddInCommandPipeline.Apply"/> and syncs <see cref="SimpleItemFactory"/> delegates for Beep WinForms controls.</summary>
