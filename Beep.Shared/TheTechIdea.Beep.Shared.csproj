@@ -30,10 +30,10 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.9" />
     <PackageReference Include="Svg" Version="3.4.7" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.9" />
-    <PackageReference Include="TheTechIdea.Beep.DataManagementModels" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Beep.Winform\TheTechIdea.Beep.Vis.Modules2.0\TheTechIdea.Beep.Vis.Modules.csproj" />
+    <ProjectReference Include="..\..\BeepDM\DataManagementModelsStandard\DataManagementModels.csproj" />
   </ItemGroup>
 
 </Project>
